@@ -2,6 +2,7 @@
 ## Title: Slip Frames
 ## Version: 1.0.0
 ## Notes: Unit frame transparency and click-through adjustable on demand with the mouse wheel.
+## IconTexture: Interface/AddOns/SlipFrames/icon.png
 ## Author: Mot (@6mot, @tflo)
 ## SPDX-License-Identifier: GPL-3.0-or-later
 ## X-Curse-Project-ID:
