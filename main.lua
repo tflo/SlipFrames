@@ -148,12 +148,18 @@ local function alpha_new(frame, delta)
 end
 
 local mouse_entered
+local msg_timestamp = 0
 
 local function frame_alpha_scroll(self, delta)
 -- 	self:SetMouseMotionEnabled(true)
 	if IsModifiedClick() and not InCombatLockdown() then
 		if A.db.frames.alpha_locked then
-			addonprint('Alpha is locked; ' .. CLR.KEY('double-click') .. ' frame to unlock.')
+			-- For the fast scrollers, throttle the msg a bit
+			local now = GetTime()
+			if now - msg_timestamp > 1 then
+				addonprint('Alpha is locked; ' .. CLR.KEY('double-click') .. ' frame to unlock.')
+				msg_timestamp = now
+			end
 		else
 			local frame = frameglobals[self]
 			local alpha = max(FRAMES[frame].alpha_min, alpha_new(frame, delta))
