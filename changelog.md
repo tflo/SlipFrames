@@ -1,10 +1,10 @@
-To see all commits, including all alpha changes, [*go here*](https://github.com/tflo/XXX/commits/master/).
+To see all commits, including all alpha changes, [*go here*](https://github.com/tflo/SlipFrames/commits/master/).
 
 ---
 
 ## Releases
 
-#### 0.1.0 (202X-XX-XX)
+#### 1.0.0 (2025-11-11)
 
-- Initial
+- Initial version for CurseForge.
 
