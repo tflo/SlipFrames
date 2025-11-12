@@ -197,7 +197,8 @@ local function frame_alpha_lock()
 end
 
 -- Set the alpha to 1 when hovering over, reset to set value when mouse leaves
-local function frame_alpha_mouse_enter(self, motion)
+-- Do not test against the 2nd parameter `motion`, otherwise alpha stays at 1 when mouse leaves
+local function frame_alpha_mouse_enter(self)
 	if not InCombatLockdown() then
 		local frame = frameglobals[self]
 		for _, v in pairs(FRAMES) do
@@ -206,7 +207,7 @@ local function frame_alpha_mouse_enter(self, motion)
 	end
 end
 
-local function frame_alpha_mouse_leave(self, motion)
+local function frame_alpha_mouse_leave(self)
 	if not InCombatLockdown() then
 		local frame = frameglobals[self]
 		for _, v in pairs(FRAMES) do
