@@ -162,9 +162,9 @@ end
 local mouse_entered
 local msg_timestamp = 0
 
-local function frame_alpha_scroll(self, delta)
--- 	self:SetMouseMotionEnabled(true)
-	if IsModifiedClick() and not InCombatLockdown() then
+local function frame_scroll(self, delta)
+	if InCombatLockdown() then return end
+	if IsModifiedClick() then -- Alpha
 		if A.db.frames.alpha_locked then
 			-- For the fast scrollers, throttle the msg a bit
 			local now = GetTime()
@@ -187,6 +187,19 @@ local function frame_alpha_scroll(self, delta)
 				A.db.frames[frame].alpha = alpha
 			end
 			mouse_entered = nil
+		end
+	else -- Click-through; analogous to the combat version
+		local state = self:IsMouseEnabled()
+		self:EnableMouse(delta == 1)
+		if self:IsMouseEnabled() ~= state then
+			addonprint(
+				format(
+					'Slip Frames: %s: %s',
+					self:GetName(),
+					state and CLR.LOCKED('Click-through') or CLR.UNLOCKED('Mouse enabled')
+				)
+			)
+		play(state and SND.ALPHA_LOCK or SND.ALPHA_UNLOCK)
 		end
 	end
 end
@@ -245,7 +258,7 @@ end
 -- locked (which is the purpose).
 -- `offset == 1` means mousewheel turned backwards
 local securehandlerbody = [=[
-	if not IsModifiedClick() then
+	if PlayerInCombat() and not IsModifiedClick() then
 		local state = self:IsMouseEnabled()
 		self:EnableMouse(offset == 1)
 		if self:IsMouseEnabled() ~= state then
@@ -260,7 +273,7 @@ local securehandlerbody = [=[
 -- Put the stuff in place
 for _, v in pairs(FRAMES) do
 	if v.global then
-		v.global:HookScript('OnMouseWheel', frame_alpha_scroll)
+		v.global:HookScript('OnMouseWheel', frame_scroll)
 		v.global:HookScript('OnDoubleClick', frame_alpha_lock)
 		v.global:HookScript('OnEnter', frame_alpha_mouse_enter)
 		v.global:HookScript('OnLeave', frame_alpha_mouse_leave)
