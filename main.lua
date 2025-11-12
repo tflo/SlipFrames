@@ -22,10 +22,10 @@ local InCombatLockdown = InCombatLockdown
 ============================================================================]]--
 
 --[[----------------------------------------------------------------------------
-	Color
+	Color, Sound
 ----------------------------------------------------------------------------]]--
 
-local colors = {
+local colors = { -- When changing, change also the literals in the securehandlerbody!
 	ADDON = '1E90FF', -- dodgerblue
 	TXT = 'FFF8DC', -- cornsilk
 	DEBUG = 'FF00FF', -- magenta
@@ -39,8 +39,8 @@ local colors = {
 	OFF = 'C0C0C0', -- silver
 	CMD = 'FFA500', -- orange
 	KEY = 'FFD700', -- gold
-	XXX = '00FA9A', -- mediumspringgreen
-	YYY = '90EE90', -- lightgreen
+	LOCKED = 'FA8072', -- salmon
+	UNLOCKED = '90EE90', -- lightgreen
 }
 
 local CLR = setmetatable({}, {
@@ -61,6 +61,22 @@ end
 -- local function debugprint(...)
 -- 	print(format('%s%s > DEBUG > %s', CLR.DEBUG(), MYSHORTNAME, CLR.TXT()), ...)
 -- end
+
+local enable_sound = true
+
+local SND = {
+	ALPHA_SET = 567455, -- interface/magicclick
+	ALPHA_LOCK = 2138734, -- sound/interface/ui_80_azeritearmor_rotationendclicks_01.ogg#2138734
+-- 	ALPHA_UNLOCK = 2138727, -- sound/interface/ui_80_azeritearmor_rotationendclicks_03.ogg#2138727
+	ALPHA_UNLOCK = 567462, -- sound/interface/keyringopen.ogg#567462
+-- 	ALPHA_CANNOT = 2054973, -- sound/creature/baby_parrot/mon_babyparrot_clickable_02.ogg#2054973
+	ALPHA_CANNOT = 2024957, -- sound/creature/whompus/mon_whompus_clickable_05.ogg#2024957
+}
+
+local function play(sound)
+	if enable_sound then PlaySoundFile(sound) end
+end
+
 
 
 --[[----------------------------------------------------------------------------
@@ -153,8 +169,9 @@ local function frame_alpha_scroll(self, delta)
 			-- For the fast scrollers, throttle the msg a bit
 			local now = GetTime()
 			if now - msg_timestamp > 1 then
-				addonprint('Alpha is locked; ' .. CLR.KEY('double-click') .. ' frame to unlock.')
+				addonprint(format('Alpha is %s; %s frame to unlock.', CLR.LOCKED('locked'), CLR.KEY('double-click')))
 				msg_timestamp = now
+				play(SND.ALPHA_CANNOT)
 			end
 		else
 			local frame = frameglobals[self]
@@ -165,7 +182,8 @@ local function frame_alpha_scroll(self, delta)
 				end
 			end
 			if alpha ~= A.db.frames[frame].alpha then
-				addonprint('Alpha: ' .. CLR.KEY(alpha * 100) .. '%')
+				addonprint(format('Alpha: %s%%', CLR.KEY(alpha * 100)))
+				play(SND.ALPHA_SET)
 				A.db.frames[frame].alpha = alpha
 			end
 			mouse_entered = nil
@@ -177,7 +195,8 @@ end
 local function frame_alpha_lock()
 	if not InCombatLockdown() then
 		A.db.frames.alpha_locked = not A.db.frames.alpha_locked
-		addonprint('Alpha: ' .. CLR.KEY(A.db.frames.alpha_locked and 'Locked' or 'Unlocked'))
+		addonprint(format('Alpha values %s.', A.db.frames.alpha_locked and CLR.LOCKED('locked') or CLR.UNLOCKED('unlocked')))
+		play(A.db.frames.alpha_locked and SND.ALPHA_LOCK or SND.ALPHA_UNLOCK)
 	end
 end
 
@@ -228,7 +247,10 @@ local securehandlerbody = [=[
 		local state = self:IsMouseEnabled()
 		self:EnableMouse(offset == 1)
 		if self:IsMouseEnabled() ~= state then
-			print(self:GetName() .. ': ' .. (state and 'Click-through' or 'Mouse enabled'))
+			print('\124cff1E90FFSlip Frames:\124cffFFF8DC '
+				.. self:GetName() .. ': '
+				.. (state and '\124cffFA8072Click-through' or '\124cff90EE90Mouse enabled')
+			)
 		end
 	end
 ]=]
