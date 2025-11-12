@@ -55,8 +55,8 @@ local defaults = {
 if type(_G[DB_ID]) ~= 'table' then
 	_G[DB_ID] = {}
 elseif not _G[DB_ID].db_version or _G[DB_ID].db_version ~= DB_VERSION_CURRENT then
-	-- Clean up old db stuff
-	_G[DB_ID].db_version = DB_VERSION_CURRENT
+	-- Clean up stuff, update db structure
+	-- _G[DB_ID].db_version = DB_VERSION_CURRENT
 end
 
 merge_defaults(defaults, _G[DB_ID])
