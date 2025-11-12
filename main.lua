@@ -58,9 +58,9 @@ local function addonprint(msg)
 	print(format('%s%s: %s', CLR.ADDON(), MYPRETTYNAME, CLR.TXT(msg)))
 end
 
-local function debugprint(...)
-	print(format('%s%s > DEBUG > %s', CLR.DEBUG(), MYSHORTNAME, CLR.TXT()), ...)
-end
+-- local function debugprint(...)
+-- 	print(format('%s%s > DEBUG > %s', CLR.DEBUG(), MYSHORTNAME, CLR.TXT()), ...)
+-- end
 
 
 --[[----------------------------------------------------------------------------

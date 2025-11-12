@@ -1,12 +1,12 @@
 ## Interface: 110205
 ## Title: Slip Frames
-## Version: 1.0.1
+## Version: 1.0.2
 ## Notes: Unit frame transparency and click-through adjustable on demand with the mouse wheel.
 ## IconTexture: Interface/AddOns/SlipFrames/icon.png
 ## Author: Mot (@6mot, @tflo)
 ## SPDX-License-Identifier: GPL-3.0-or-later
-## X-Curse-Project-ID:
-## X-Wago-ID:
+## X-Curse-Project-ID: 1383120
+# X-Wago-ID:
 ## AllowAddOnTableAccess: 1
 ## LoadSavedVariablesFirst: 1
 ## SavedVariables: DB_018569C5_710D_4FE6_9C7F_D7389153A3AE
