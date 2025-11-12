@@ -4,6 +4,11 @@ To see all commits, including all alpha changes, [*go here*](https://github.com/
 
 ## Releases
 
+#### 1.0.3 (2025-11-12)
+
+- Unify colors in feedback nessages.
+- Add sounds. WiP; currently for: change alpha, lock/unlock alpha, trying to change locked alpha
+
 #### 1.0.2 (2025-11-12)
 
 - Fix misnamed variable.

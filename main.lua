@@ -238,6 +238,8 @@ function A.save_frames_mouse() -- @ PLAYER_LOGOUT
 	end
 end
 
+
+
 -- This stuff must work in combat, so that we can quickly unlock the frames.
 -- Mousewheel is the only option, since clicks or OnEnter don't get through when
 -- locked (which is the purpose).
