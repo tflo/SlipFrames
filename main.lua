@@ -65,12 +65,10 @@ end
 local enable_sound = true
 
 local SND = {
-	ALPHA_SET = 567455, -- interface/magicclick
-	ALPHA_LOCK = 2138734, -- sound/interface/ui_80_azeritearmor_rotationendclicks_01.ogg#2138734
--- 	ALPHA_UNLOCK = 2138727, -- sound/interface/ui_80_azeritearmor_rotationendclicks_03.ogg#2138727
-	ALPHA_UNLOCK = 567462, -- sound/interface/keyringopen.ogg#567462
--- 	ALPHA_CANNOT = 2054973, -- sound/creature/baby_parrot/mon_babyparrot_clickable_02.ogg#2054973
-	ALPHA_CANNOT = 2024957, -- sound/creature/whompus/mon_whompus_clickable_05.ogg#2024957
+	LOCK = 567523, -- alpha & click
+	UNLOCK = 567462,  -- alpha & click
+	ALPHA_SET = 567455,
+	ALPHA_CANNOT = 2024957,
 }
 
 local function play(sound)
@@ -199,7 +197,7 @@ local function frame_scroll(self, delta)
 					state and CLR.LOCKED('Click-through') or CLR.UNLOCKED('Mouse enabled')
 				)
 			)
-		play(state and SND.ALPHA_LOCK or SND.ALPHA_UNLOCK)
+		play(state and SND.LOCK or SND.UNLOCK)
 		end
 	end
 end
@@ -209,7 +207,7 @@ local function frame_alpha_lock()
 	if not InCombatLockdown() then
 		A.db.frames.alpha_locked = not A.db.frames.alpha_locked
 		addonprint(format('Alpha values %s.', A.db.frames.alpha_locked and CLR.LOCKED('locked') or CLR.UNLOCKED('unlocked')))
-		play(A.db.frames.alpha_locked and SND.ALPHA_LOCK or SND.ALPHA_UNLOCK)
+		play(A.db.frames.alpha_locked and SND.LOCK or SND.UNLOCK)
 	end
 end
 
