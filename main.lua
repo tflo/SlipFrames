@@ -15,8 +15,6 @@ local format = format
 local InCombatLockdown = InCombatLockdown
 
 
-
-
 --[[============================================================================
 	Constants and Utils
 ============================================================================]]--
@@ -71,10 +69,9 @@ local SND = {
 	ALPHA_CANNOT = 2024957,
 }
 
-local function play(sound)
+local function playsound(sound)
 	if enable_sound then PlaySoundFile(sound) end
 end
-
 
 
 --[[----------------------------------------------------------------------------
@@ -84,7 +81,7 @@ end
 A.ALPHA_COMBAT = 1
 
 local FRAMES = {
-	player = {
+	playsounder = {
 		global = PlayerFrame,
 		group = 1,
 		alpha_min = 0,
@@ -120,20 +117,6 @@ local frameglobals = setmetatable({}, {
 	Main
 ============================================================================]]--
 
--- Currently, it works like this:
--- Player and Pet share the same alpha (group 1); set with modifier-scrollwheel
--- Target and Focus share the same alpha (group 2); set with modifier-scrollwheel
--- Alpha-lock is global for all frames and can be toggled on any; set with double-click
--- Clickthrough is enabled and saved for each of the 4 frames separately; set with scrollwheel
-	-- Initially this was because I don't know how to set the state in the securehandler for the second frame (which is not `self`); and I still don't know.
-	-- But it turned out that it is good this way.
-
--- https://warcraft.wiki.gg/wiki/API_ScriptRegion_EnableMouse :
--- Setting the OnEnter/Leave, OnMouseDown/Up script automatically implies EnableMouse(true)
--- In turn, EnableMouse implies SetMouseMotionEnabled and SetMouseClickEnabled
--- SetMouseMotionEnabled() controls OnEnter/Leave
--- SetMouseClickEnabled() controls OnMouseDown/Up, OnDragStart/Stop and OnClick (Button)
-
 --[[---------------------------------------------------------------------------
 	Alpha
 ---------------------------------------------------------------------------]]--
@@ -167,21 +150,25 @@ local function frame_scroll(self, delta)
 			-- For the fast scrollers, throttle the msg a bit
 			local now = GetTime()
 			if now - msg_timestamp > 1 then
-				addonprint(format('Alpha is %s; %s frame to unlock.', CLR.LOCKED('locked'), CLR.KEY('double-click')))
+				addonprint(
+					format(
+						'Alpha is %s; %s frame to unlock.',
+						CLR.LOCKED('locked'),
+						CLR.KEY('double-click')
+					)
+				)
 				msg_timestamp = now
-				play(SND.ALPHA_CANNOT)
+				playsound(SND.ALPHA_CANNOT)
 			end
 		else
 			local frame = frameglobals[self]
 			local alpha = max(FRAMES[frame].alpha_min, alpha_new(frame, delta))
 			for _, v in pairs(FRAMES) do
-				if v.group == FRAMES[frame].group then
-					v.global:SetAlpha(alpha)
-				end
+				if v.group == FRAMES[frame].group then v.global:SetAlpha(alpha) end
 			end
 			if alpha ~= A.db.frames[frame].alpha then
 				addonprint(format('Alpha: %s%%', CLR.KEY(alpha * 100)))
-				play(SND.ALPHA_SET)
+				playsound(SND.ALPHA_SET)
 				A.db.frames[frame].alpha = alpha
 			end
 			mouse_entered = nil
@@ -197,7 +184,7 @@ local function frame_scroll(self, delta)
 					state and CLR.LOCKED('Click-through') or CLR.UNLOCKED('Mouse enabled')
 				)
 			)
-		play(state and SND.LOCK or SND.UNLOCK)
+		playsound(state and SND.LOCK or SND.UNLOCK)
 		end
 	end
 end
@@ -207,7 +194,7 @@ local function frame_alpha_lock()
 	if not InCombatLockdown() then
 		A.db.frames.alpha_locked = not A.db.frames.alpha_locked
 		addonprint(format('Alpha values %s.', A.db.frames.alpha_locked and CLR.LOCKED('locked') or CLR.UNLOCKED('unlocked')))
-		play(A.db.frames.alpha_locked and SND.LOCK or SND.UNLOCK)
+		playsound(A.db.frames.alpha_locked and SND.LOCK or SND.UNLOCK)
 	end
 end
 
@@ -243,18 +230,8 @@ function A.frames_set_mouse() -- @ PLAYER_LOGIN
 	end
 end
 
-function A.save_frames_mouse() -- @ PLAYER_LOGOUT
-	for k, v in pairs(FRAMES) do
-		A.db.frames[k].mouse = v.global:IsMouseEnabled()
-	end
-end
-
-
-
--- This stuff must work in combat, so that we can quickly unlock the frames.
--- Mousewheel is the only option, since clicks or OnEnter don't get through when
--- locked (which is the purpose).
--- `offset == 1` means mousewheel turned backwards
+-- We must be able to unlock the frame in combat
+-- 1 for backward (down), -1 for forward
 local securehandlerbody = [=[
 	if PlayerInCombat() and not IsModifiedClick() then
 		local state = self:IsMouseEnabled()
@@ -268,7 +245,14 @@ local securehandlerbody = [=[
 	end
 ]=]
 
--- Put the stuff in place
+-- We cannot access our db in combat, so we write later
+function A.save_frames_mouse() -- @ PLAYER_LOGOUT
+	for k, v in pairs(FRAMES) do
+		A.db.frames[k].mouse = v.global:IsMouseEnabled()
+	end
+end
+
+-- Put everything in place
 for _, v in pairs(FRAMES) do
 	if v.global then
 		v.global:HookScript('OnMouseWheel', frame_scroll)
