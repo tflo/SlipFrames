@@ -1,6 +1,6 @@
 # Slip Frames
 
-Unit frame transparency and click-through on demand – for Player, Pet, Target, and Focus frame.
+Adjust unit frame transparency and click-through on demand with the mouse wheel.
 
 ## Is this addon for you?
 
@@ -10,21 +10,21 @@ This addon is for you if one of the following is true:
 - You have your Player and Target frames in the center area of your screen, but this isn’t all shiny because the frames often do get in the way: they intercept your mouse clicks, or obscure your view.  
 - You have the Target frame in the mid to lower right-center part of the screen, and when you move with the right mouse button, you often get stuck due to accidental clicks on the frame.
 
-Slip Frames is *probably* not compatible with other unit-frame addons that modify or replace these frames; but you might give it a try.
-
 ## What the addon does
 
-Slip Frames allows you to adjust two attributes of the frames with just your mouse wheel:
+Slip Frames allows you to adjust two attributes of the frames using your mouse wheel:
 
 - **Transparency,** aka opacity
 - **Click-through behavior:** whether the frame intercepts (receives) mouse clicks, or if clicks on the frame are passed through to the background/world frame.
 
 Adjustable frames are:
 
-- Player frame
-- Pet frame
-- Target frame
-- Focus frame
+- PlayerFrame
+- PetFrame
+- TargetFrame
+- FocusFrame
+
+These are the game’s standard frames. Compatibility with unit-frame addons that modify these frames is *uncertain;* you might give it a try. (If the addon *replaces* the frames, Slip Frames will not work and you should not load it.)
 
 ### The Point of this?
 
@@ -34,7 +34,7 @@ Some third-party unit-frame addons allow you to set transparency and click-throu
 
 ## Usage
 
-Slip Frames  allows you to change the two things (transparency and click-through behavior) on the fly, *without having to open any settings panel or enter any slash command,* just by simple mouse wheel actions:
+With Slip Frames, you can change frame transparency and click-through behavior on the fly, *without having to open any settings panel or enter slash commands,* just by simple mouse wheel actions:
 
 **With your mouse over the Player, Pet, Target, or Focus frame:**
 
