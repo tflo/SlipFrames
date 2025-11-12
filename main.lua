@@ -120,10 +120,6 @@ local frameglobals = setmetatable({}, {
 -- SetMouseMotionEnabled() controls OnEnter/Leave
 -- SetMouseClickEnabled() controls OnMouseDown/Up, OnDragStart/Stop and OnClick (Button)
 
-
-
-
-
 --[[---------------------------------------------------------------------------
 	Alpha
 ---------------------------------------------------------------------------]]--
@@ -232,7 +228,7 @@ local securehandlerbody = [=[
 		local state = self:IsMouseEnabled()
 		self:EnableMouse(offset == 1)
 		if self:IsMouseEnabled() ~= state then
-			print(self:GetName(), state and 'click-through' or 'mouse enabled')
+			print(self:GetName() .. ': ' .. (state and 'Click-through' or 'Mouse enabled'))
 		end
 	end
 ]=]
@@ -247,7 +243,6 @@ for _, v in pairs(FRAMES) do
 		SecureHandlerWrapScript(v.global, 'OnMouseWheel', v.global, securehandlerbody)
 	end
 end
-
 
 
 --[[============================================================================
@@ -300,6 +295,7 @@ local function multiprint(lines)
 		print(v)
 	end
 end
+
 
 --[[----------------------------------------------------------------------------
 	Slash function

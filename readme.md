@@ -64,7 +64,7 @@ Any modifier key works: Cmd/Meta, Alt, Ctrl, or Shift.
 
 There are no GUI or slash command settings. Everything is done with the mouse wheel. The values will be saved account-wide (not per char).
 
-If you forgot how the addon works, you can display a help text by entering `/slipframes` or `/sfr` in the chat console. `/sfr version` print the addon version.
+If you forgot how the addon works, you can display a help text by entering `/slipframes` or `/sfr` in the chat console. `/sfr version` prints the addon version.
 
 __Have fun with the addon!__
 
