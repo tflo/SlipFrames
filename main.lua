@@ -2,15 +2,15 @@
 -- Copyright (c) 2025 Thomas Floeren
 
 local MYNAME, A = ...
-local MYPRETTYNAME = C_AddOns.GetAddOnMetadata(MYNAME, 'Title')
-local MYVERSION = C_AddOns.GetAddOnMetadata(MYNAME, 'Version')
+local MYPRETTYNAME = C_AddOns.GetAddOnMetadata(MYNAME, 'Title') or '<UNKNOWN ADDON NAME>'
+local MYVERSION = C_AddOns.GetAddOnMetadata(MYNAME, 'Version') or '<UNKNOWN ADDON VERSION>'
 local MYSHORTNAME = 'SF'
 local db = A.db
 
-local C_Timer_After = C_Timer.After
+-- local C_Timer_After = C_Timer.After
 local WTC = WrapTextInColorCode
 local tonumber = tonumber
-local type = type
+-- local type = type
 local format = format
 local InCombatLockdown = InCombatLockdown
 
@@ -67,7 +67,7 @@ end
 	Frames
 ----------------------------------------------------------------------------]]--
 
-local ALPHA_COMBAT = 1
+A.ALPHA_COMBAT = 1
 
 local FRAMES = {
 	player = {

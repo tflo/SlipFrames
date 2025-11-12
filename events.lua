@@ -14,7 +14,7 @@ local function PLAYER_LOGIN()
 end
 
 local function PLAYER_REGEN_DISABLED()
-	A.frames_set_alpha(ALPHA_COMBAT)
+	A.frames_set_alpha(A.ALPHA_COMBAT)
 end
 
 local function PLAYER_REGEN_ENABLED()
