@@ -81,7 +81,7 @@ end
 A.ALPHA_COMBAT = 1
 
 local FRAMES = {
-	playsounder = {
+	player = {
 		global = PlayerFrame,
 		group = 1,
 		alpha_min = 0,
@@ -140,7 +140,6 @@ local function alpha_new(frame, delta)
 	return floor(alpha + 0.5) / 10
 end
 
-local mouse_entered
 local msg_timestamp = 0
 
 local function frame_scroll(self, delta)
@@ -171,7 +170,6 @@ local function frame_scroll(self, delta)
 				playsound(SND.ALPHA_SET)
 				A.db.frames[frame].alpha = alpha
 			end
-			mouse_entered = nil
 		end
 	else -- Click-through; analogous to the combat version
 		local state = self:IsMouseEnabled()
@@ -205,17 +203,15 @@ local function frame_alpha_mouse_enter(self, motion)
 		for _, v in pairs(FRAMES) do
 			if v.group == FRAMES[frame].group then v.global:SetAlpha(1) end
 		end
-		mouse_entered = true
 	end
 end
 
 local function frame_alpha_mouse_leave(self, motion)
-	if not InCombatLockdown() and mouse_entered then
+	if not InCombatLockdown() then
 		local frame = frameglobals[self]
 		for _, v in pairs(FRAMES) do
 			if v.group == FRAMES[frame].group then v.global:SetAlpha(A.db.frames[frame].alpha) end
 		end
-		mouse_entered = nil
 	end
 end
 
