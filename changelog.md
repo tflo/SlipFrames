@@ -4,6 +4,15 @@ To see all commits, including all alpha changes, [*go here*](https://github.com/
 
 ## Releases
 
+#### 1.1.0 (2025-11-13)
+
+- Use non-secure variant of the click-thru function when not in combat.
+    - So we can have feedback sounds for this too (outside combat).
+- Changed sounds; add sounds for click-thru outside combat.
+- Add toggle for sounds `/sfr sound`, default on.
+- Remove a redundant flag.
+- Cleanup.
+
 #### 1.0.3 (2025-11-12)
 
 - Unify colors in feedback nessages.

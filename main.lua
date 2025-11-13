@@ -279,7 +279,7 @@ local help = {
 	format('%sRoll %s on unit frame:', CLR.HEAD(), CLR.CMD('mouse weel')),
 	format('%s%s : Lock frame (mouse click-through)..', CLR.TXT(), CLR.CMD('Up (forward)')),
 	format('%s%s : Unlock frame (receives mouse clicks).', CLR.TXT(), CLR.CMD('Down (backward)')),
-	format('%s%s : Frame transparency.', CLR.TXT(), CLR.CMD('Up/down with modifier key')),
+	format('%s%s : Adjust transparency.', CLR.TXT(), CLR.CMD('Up/down with modifier key')),
 	format(
 		'%s%s is per group: %s vs %s frames. %s is per frame.',
 		CLR.TXT(),
@@ -289,7 +289,7 @@ local help = {
 		CLR.KEY('Click-through')
 	),
 	format(
-		'%s%s any frame to %s values.',
+		'%s%s a frame to %s values.',
 		CLR.TXT(),
 		CLR.CMD('Double-click'),
 		CLR.KEY('lock all transparency')

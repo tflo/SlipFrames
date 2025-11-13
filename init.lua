@@ -1,7 +1,7 @@
 -- SPDX-License-Identifier: GPL-3.0-or-later
 -- Copyright (c) 2025 Thomas Floeren
 
-local MYNAME, A = ...
+local _, A = ...
 local DB_ID = 'DB_018569C5_710D_4FE6_9C7F_D7389153A3AE'
 
 --[[============================================================================
