@@ -4,11 +4,12 @@ Adjust unit frame transparency and click-through on demand with the mouse wheel.
 
 ## Is this addon for you?
 
-This addon is for you if one of the following is true:
+If one of the following sounds familiar to you, give Slip Frames a try:
 
-- You keep your Blizzard Player and Target frames in the corner or at the bottom of your screen because otherwise they would get in the way.  
-- You have your Player and Target frames in the center area of your screen, but this isn’t all shiny because the frames often do get in the way: they intercept your mouse clicks, or obscure your view.  
-- You have the Target frame in the mid to lower right-center part of the screen, and when you move with the right mouse button, you often get stuck due to accidental clicks on the frame.
+- You keep your Blizzard Player and Target frames tucked away in the corner or at the bottom of your screen because they’d otherwise get in the way.  
+- You have your Player and Target frames in the center area of your screen, but it’s not really great because they often do get in the way: they block your mouse clicks, or obscure your view.  
+- You have the Target frame in the mid/lower right part of the screen, and when you move with the right mouse button, you often get stuck because you accidentally click on the frame.
+- You’ve been playing one of those mini games with fixed camera angle, like an Untangling puzzle, and could’t finish it because your Player frame made it impossible to click a node.
 
 ## What the addon does
 
@@ -30,7 +31,7 @@ These are the game’s standard frames. Compatibility with unit-frame addons tha
 
 By (Blizz-)default, these frames are 100% opaque and always receive mouse clicks. This is a good starting point, but lacks flexibility.
 
-Some third-party unit-frame addons allow you to set transparency and click-through, but the settings are buried in a settings panel or require slash commands. As a result, they become permanent either-or settings, making hot swapping impossible.
+Some third-party unit frame addons allow you to set transparency and click-through, but the settings are buried in a settings panel or require slash commands. As a result, they become permanent either-or settings, making hot swapping impossible.
 
 ## Usage
 
@@ -43,22 +44,30 @@ With Slip Frames, you can change frame transparency and click-through behavior o
 
 Any modifier key works: Cmd/Meta, Alt, Ctrl, or Shift.
 
-## More details
+## Details
 
-- While in combat:  
-    - You can change the click-through behavior also in combat, since this can be crucial, e.g. for setting raid markers via right-click. This is securely implemented so that it doesn’t taint.
-    - Everything else (e.g. setting transparency) is not allowed during combat.
-    - Opacity will automatically go to 100% when entering combat, and revert to the set values after combat ends.
+### In combat
+
+- You can change the click-through behavior also in combat, since this can be crucial, e.g. for setting raid markers via right-click. This is securely implemented so that it doesn’t taint.
+- Everything else (e.g. setting transparency) is not allowed during combat.
+- Opacity will automatically go to 100% when entering combat, and revert to the set values after combat ends.
+
+### Frame scope
+
 - For the transparency value, the frames are treated as two groups: 
     - Player & Pet frame
     - Target & Focus frame
-    - Changes to one group member also affect the other, but not the other group.
-    - This allows you to have different transparency for Player/Pet vs Target/Focus frame.
-- Click-through is set per frame.
+- Changes to one group member also affect the other, but not the other group.
+- This allows you to have different transparency for Player/Pet vs Target/Focus frame.
+- Click-through is set per frame. (I can add an option to make this also per-group, if someone thinks it might be useful.)
+
+### Extras/other
+
 - While you hover over an unlocked (non click-through) frame, opacity automatically goes to 100%.
-- Any changes you make will print feedback to the chat console (e.g. the current alpha (opacity) value in percent); you’ll also get a feedback sound (not in combat).
-- To prevent accidental changes to your transparency values, double-click any of the affected frames (transparency lock). The automatic opacity increase to 100% during combat is not blocked by this.
-    - For obvious reasons, click-through must be disabled for this to work.
+- Step size for transparency adjustment is 10%. Defaults are 20% for the PlayerFrame group, 60% for the TargetFrame group.
+- Any changes you make will print feedback to the chat console, for example the current alpha (opacity) value in percent; you’ll also get feedback sounds (not in combat).
+- To prevent accidental changes to your transparency values, double-click any of the affected frames (alpha lock). The automatic opacity increase to 100% during combat or hovering is not blocked by this.
+    - If you think this doesn’t work, then disable click-through (wheel down) and try again..
 
 ## UI and Settings
 
@@ -66,7 +75,7 @@ There are no GUI or slash command settings. Everything is done with the mouse wh
 
 If you forgot how the addon works, you can display a help text by entering `/slipframes` or `/sfr` in the chat console. `/sfr version` prints the addon version. If the little feedback sounds annoy you, toggle them with `/sfr sound`.
 
-__Have fun with the addon!__
+_Have fun with the addon!_
 
 ---
 
