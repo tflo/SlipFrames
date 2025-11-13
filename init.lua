@@ -48,6 +48,7 @@ local defaults = {
 		},
 	},
 	alpha_locked = false,
+	sound_enabled = true,
 	debugmode = false,
 	db_version = DB_VERSION_CURRENT,
 }

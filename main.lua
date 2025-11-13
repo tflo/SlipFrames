@@ -60,17 +60,20 @@ end
 -- 	print(format('%s%s > DEBUG > %s', CLR.DEBUG(), MYSHORTNAME, CLR.TXT()), ...)
 -- end
 
-local enable_sound = true
-
 local SND = {
 	LOCK = 567523, -- alpha & click
 	UNLOCK = 567462,  -- alpha & click
 	ALPHA_SET = 567455,
 	ALPHA_CANNOT = 2024957,
+	SOUND_ON = 1059407,
+	SOUND_OFF = 1059411,
 }
 
-local function playsound(sound)
-	if enable_sound then PlaySoundFile(sound) end
+local function playsound(sound, force)
+	if db.sound_enabled or force then
+		if not tonumber(sound) then error('Invalid sound ID. Please report this error.') end
+		PlaySoundFile(sound)
+	end
 end
 
 
@@ -302,6 +305,7 @@ local help = {
 		CLR.CMD(CMD1),
 		CLR.CMD(CMD2)
 	),
+	format('%s%s : Toggle sound feedback.', CLR.TXT(), CLR.CMD('sound')),
 	format('%s%s : Print addon version.', CLR.TXT(), CLR.CMD('version')),
 	format('%s%s or %s : Print this help text.', CLR.TXT(), CLR.CMD('help'), CLR.CMD('h')),
 }
@@ -326,6 +330,15 @@ SlashCmdList.SlipFrames = function(msg)
 	end
 	if args[1] == 'version' or args[1] == 'ver' then
 		addonprint(format('Version %s', CLR.KEY(MYVERSION)))
+	elseif args[1] == 'sound' then
+		db.sound_enabled = not db.sound_enabled
+		addonprint(
+			format(
+				"Sound feedback %s.",
+				db.sound_enabled and CLR.ON('enabled') or CLR.OFF('disabled')
+			)
+		)
+		playsound(db.sound_enabled and SND.SOUND_ON or SND.SOUND_OFF, true)
 	elseif args[1] == 'dm' then
 		db.debugmode = not db.debugmode
 		addonprint(

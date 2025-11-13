@@ -56,7 +56,7 @@ Any modifier key works: Cmd/Meta, Alt, Ctrl, or Shift.
     - This allows you to have different transparency for Player/Pet vs Target/Focus frame.
 - Click-through is set per frame.
 - While you hover over an unlocked (non click-through) frame, opacity automatically goes to 100%.
-- Any changes you make will print feedback to the chat console (e.g. the current alpha (opacity) value in percent).
+- Any changes you make will print feedback to the chat console (e.g. the current alpha (opacity) value in percent); you’ll also get a feedback sound (not in combat).
 - To prevent accidental changes to your transparency values, double-click any of the affected frames (transparency lock). The automatic opacity increase to 100% during combat is not blocked by this.
     - For obvious reasons, click-through must be disabled for this to work.
 
@@ -64,7 +64,7 @@ Any modifier key works: Cmd/Meta, Alt, Ctrl, or Shift.
 
 There are no GUI or slash command settings. Everything is done with the mouse wheel. The values will be saved account-wide (not per char).
 
-If you forgot how the addon works, you can display a help text by entering `/slipframes` or `/sfr` in the chat console. `/sfr version` prints the addon version.
+If you forgot how the addon works, you can display a help text by entering `/slipframes` or `/sfr` in the chat console. `/sfr version` prints the addon version. If the little feedback sounds annoy you, toggle them with `/sfr sound`.
 
 __Have fun with the addon!__
 
