@@ -8,6 +8,14 @@ local MYVERSION = C_AddOns.GetAddOnMetadata(MYNAME, 'Version') or '<UNKNOWN ADDO
 local MYSHORTNAME = 'SF'
 local db = A.db
 
+
+local debug_force_secure, debug_mouse_groups
+if USER_IS_AUTHOR then
+	debug_force_secure = true -- use secure func outside combat
+	debug_mouse_groups = true -- test mouseenable per group
+end
+if debug_force_secure or debug_mouse_groups then PlaySoundFile(1102141) end
+
 -- local C_Timer_After = C_Timer.After
 local WTC = WrapTextInColorCode
 local tonumber = tonumber
@@ -176,6 +184,7 @@ local function frame_scroll(self, delta)
 			end
 		end
 	else -- Click-through; analogous to the combat version
+		if debug_force_secure then return end
 		local state = self:IsMouseEnabled()
 		self:EnableMouse(delta == 1)
 		if self:IsMouseEnabled() ~= state then
@@ -231,12 +240,41 @@ function A.frames_set_mouse() -- @ PLAYER_LOGIN
 	end
 end
 
+-- local function makegroups()
+-- 	SecureHandlerSetFrameRef(TargetFrame, 'other', FocusFrame)
+-- 	SecureHandlerSetFrameRef(FocusFrame, 'other', TargetFrame)
+-- 	SecureHandlerSetFrameRef(PlayerFrame, 'other', PetFrame)
+-- 	SecureHandlerSetFrameRef(PetFrame, 'other', PlayerFrame)
+-- end
+
+local function set_group_refs()
+	for _, v0 in pairs(FRAMES) do
+		for _, v1 in pairs(FRAMES) do
+			if v0.global:GetName() ~= v1.global:GetName() and v0.group == v1.group then
+				SecureHandlerSetFrameRef(v0.global, 'other', v1.global)
+			end
+		end
+	end
+end
+
+if debug_mouse_groups then set_group_refs() end
+
+local function enable_mouse_groups(yes)
+	if type(yes) ~= 'boolean' then yes = true end
+	for _, v in pairs(FRAMES) do
+		if v.global then v.global:SetAttribute('mouse_groups', yes) end
+	end
+end
+
+
 -- We must be able to unlock the frame in combat
 -- 1 for backward (down), -1 for forward
 local securehandlerbody = [=[
 	if PlayerInCombat() and not IsModifiedClick() then
 		local state = self:IsMouseEnabled()
+		local other = self:GetAttribute('mouse_groups') and self:GetFrameRef('other')
 		self:EnableMouse(offset == 1)
+		if other then other:EnableMouse(offset == 1) end
 		if self:IsMouseEnabled() ~= state then
 			print('\124cff1E90FFSlip Frames:\124cffFFF8DC '
 				.. self:GetName() .. ': '
@@ -245,6 +283,10 @@ local securehandlerbody = [=[
 		end
 	end
 ]=]
+
+if debug_force_secure then
+	securehandlerbody = securehandlerbody:gsub('PlayerInCombat%(%) and ', '', 1)
+end
 
 -- We cannot access our db in combat, so we write later
 function A.save_frames_mouse() -- @ PLAYER_LOGOUT
@@ -356,5 +398,9 @@ SlashCmdList.SlipFrames = function(msg)
 		print(BLOCKSEP)
 		multiprint(help)
 		print(BLOCKSEP)
+	elseif args[1] == 'emg'  then
+		enable_mouse_groups(true)
+	elseif args[1] == 'dmg'  then
+		enable_mouse_groups(false)
 	end
 end
