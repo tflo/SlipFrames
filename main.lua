@@ -2,6 +2,7 @@
 -- Copyright (c) 2025 Thomas Floeren
 
 local MYNAME, A = ...
+local USER_IS_AUTHOR = tf6 and tf6.user_is_tflo
 local MYPRETTYNAME = C_AddOns.GetAddOnMetadata(MYNAME, 'Title') or '<UNKNOWN ADDON NAME>'
 local MYVERSION = C_AddOns.GetAddOnMetadata(MYNAME, 'Version') or '<UNKNOWN ADDON VERSION>'
 local MYSHORTNAME = 'SF'
