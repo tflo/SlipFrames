@@ -355,5 +355,7 @@ SlashCmdList.SlipFrames = function(msg)
 		print(BLOCKSEP)
 		multiprint(help)
 		print(BLOCKSEP)
+	else
+		addonprint(format('This was not a valid input. Try %s.', CLR.CMD('/sfr help')))
 	end
 end
