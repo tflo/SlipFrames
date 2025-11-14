@@ -252,7 +252,11 @@ function A.save_frames_mouse() -- @ PLAYER_LOGOUT
 	end
 end
 
--- Put everything in place
+
+--[[---------------------------------------------------------------------------
+	Put everything in place
+---------------------------------------------------------------------------]]--
+
 for _, v in pairs(FRAMES) do
 	if v.global then
 		v.global:HookScript('OnMouseWheel', frame_scroll)
