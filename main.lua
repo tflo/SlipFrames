@@ -180,7 +180,7 @@ local function frame_scroll(self, delta)
 		if self:IsMouseEnabled() ~= state then
 			addonprint(
 				format(
-					'Slip Frames: %s: %s',
+					'%s: %s',
 					self:GetName(),
 					state and CLR.LOCKED('Click-through') or CLR.UNLOCKED('Mouse enabled')
 				)
