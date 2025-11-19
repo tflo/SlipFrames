@@ -4,6 +4,11 @@ To see all commits, including all alpha changes, [*go here*](https://github.com/
 
 ## Releases
 
+#### 1.1.1 (2025-11-19)
+
+- Catch invalid CL input.
+- Remove redundant string from print.
+
 #### 1.1.0 (2025-11-13)
 
 - Use non-secure variant of the click-thru function when not in combat.
