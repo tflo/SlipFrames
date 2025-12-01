@@ -1,5 +1,5 @@
--- SPDX-License-Identifier: GPL-3.0-or-later
--- Copyright (c) 2025 Thomas Floeren
+-- SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+-- Copyright (c) 2025-2026 Thomas Floeren
 
 local _, A = ...
 local DB_ID = 'DB_018569C5_710D_4FE6_9C7F_D7389153A3AE'

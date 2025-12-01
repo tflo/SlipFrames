@@ -1,5 +1,5 @@
--- SPDX-License-Identifier: GPL-3.0-or-later
--- Copyright (c) 2025 Thomas Floeren
+-- SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+-- Copyright (c) 2025-2026 Thomas Floeren
 
 local MYNAME, A = ...
 local MYPRETTYNAME = C_AddOns.GetAddOnMetadata(MYNAME, 'Title') or '<UNKNOWN ADDON NAME>'
