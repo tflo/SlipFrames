@@ -4,6 +4,11 @@ To see all commits, including all alpha changes, [*go here*](https://github.com/
 
 ## Releases
 
+#### 1.1.2 (2025-12-03)
+
+- Change license, add CONTRIBUTING/CLA.
+- toc: compat flag 110207
+
 #### 1.1.1 (2025-11-19)
 
 - Catch invalid CL input.
