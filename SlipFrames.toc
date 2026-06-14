@@ -1,6 +1,6 @@
-## Interface: 120001, 120002, 120005
+## Interface: 120005, 120007, 120100
 ## Title: Slip Frames
-## Version: 1.1.4
+## Version: 1.1.5
 ## Notes: Unit frame transparency and click-through adjustable on demand with the mouse wheel.
 ## IconTexture: Interface/AddOns/SlipFrames/icon.png
 ## Author: Mot (@6mot, @tflo)
