@@ -4,6 +4,14 @@ To see all commits, including all alpha changes, [*go here*](https://github.com/
 
 ## Releases
 
+#### 1.1.6 (2026-10-10)
+
+- toc: Add 12.1.5 compatibility flag; remove old flags.
+- toc: Add compatibility flag for Forever beta (16001).
+    - This is experimental, as I haven’t purchased beta access.
+    - If you notice minor glitches in Forever (for example, the occasional Lua error when doing a specific thing), please report them at the [Issue tracker](https://github.com/tflo/slipframes/issues).
+    - If you experience major issues (for example, Lua errors immediately upon login), please disable SlipFrames and report them to the [Issue tracker](https://github.com/tflo/slipframes/issues).
+
 #### 1.1.5 (2026-06-14)
 
 - toc bump, no changes.
