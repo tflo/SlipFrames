@@ -4,6 +4,10 @@ To see all commits, including all alpha changes, [*go here*](https://github.com/
 
 ## Releases
 
+#### 1.1.7 (2026-10-24)
+
+- toc: add flag for 12.1.7.
+
 #### 1.1.6 (2026-10-10)
 
 - toc: Add 12.1.5 compatibility flag; remove old flags.
